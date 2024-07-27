@@ -1,0 +1,33 @@
+
+[
+    {
+        "nome": "Tech Solutions LTDA",
+        "cnpj": "12345678000101",
+        "estado": "SP",
+        "numero": "+5511999999999"
+    },
+    {
+        "nome": "Innovative Systems SA",
+        "cnpj": "22345678000102",
+        "estado": "RJ",
+        "numero": "+5521999999999"
+    },
+    {
+        "nome": "Prime Technologies ME",
+        "cnpj": "32345678000103",
+        "estado": "MG",
+        "numero": "+5531999999999"
+    },
+    {
+        "nome": "Southern Software Ltd",
+        "cnpj": "42345678000104",
+        "estado": "RS",
+        "numero": "+5551999999999"
+    },
+    {
+        "nome": "Nordeste Digital Corp",
+        "cnpj": "52345678000105",
+        "estado": "BA",
+        "numero": "+5571999999999"
+    }
+]

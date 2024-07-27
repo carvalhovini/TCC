@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Comunicação CNT</title>
+    <!-- Incluindo o CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Incluindo o CSS do Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Incluindo o CSS do Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://www.cnt.org.br/assets/imagens/banner-principal7-mobile.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #003770;
+        }
+        .navbar a {
+            color: white;
+        }
+        .section {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .modal-content {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .close {
+            color: #aaa;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .btn-primary {
+            background-color: #0056b3;
+            border-color: #0056b3;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #003770;
+            border-color: #003770;
+            transform: scale(1.05);
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .nav-buttons a {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .nav-buttons a:hover {
+            background-color: #003770;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .navbar {
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+        }
+        .hero-section {
+            padding: 60px 0;
+            color: white;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+        }
+        .logo {
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Navegação -->
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1>Bem-vindo ao Sistema de Comunicação CNT</h1>
+            <p>Facilitando a interação entre o Sistema Transportador e as empresas de transporte</p>
+        </div>
+    </div>
+
+    <div class="container options-container">
+        <div class="section text-center animate__animated animate__fadeIn">
+            <h2>O que você deseja fazer?</h2>
+            <p>Utilize os botões abaixo para cadastrar empresas, enviar mensagens, configurar templates ou visualizar empresas.</p>
+            <div class="nav-buttons">
+                <a href="#cadastro" id="cadastroBtn"><i class="fas fa-building"></i> Cadastro de Empresas</a>
+                <a href="#mensagens" id="mensagensBtn"><i class="fas fa-envelope"></i> Enviar Mensagem</a>
+                <a href="#templates" id="templatesBtn"><i class="fas fa-cogs"></i> Configuração de Templates</a>
+                <a href="#empresas" id="empresasBtn"><i class="fas fa-eye"></i> Visualizar Empresas</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cadastro de Empresas -->
+    <div id="cadastroModal" class="modal fade animate__animated animate__fadeIn">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cadastro de Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="cadastroForm">
+                        <div class="form-group">
+                            <label for="nome">Nome da Empresa:</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cnpj">CNPJ:</label>
+                            <input type="text" class="form-control" id="cnpj" name="cnpj" required pattern="\d{14}" title="CNPJ deve conter 14 dígitos numéricos">
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Estado:</label>
+                            <select class="form-control" id="estado" name="estado" required>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="numero">Número de WhatsApp:</label>
+                            <input type="text" class="form-control" id="numero" name="numero" required pattern="\+55\d{10}" title="Número de WhatsApp deve estar no formato +556184081114">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Enviar Mensagem -->
+    <div id="mensagensModal" class="modal fade animate__animated animate__fadeIn">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Enviar Mensagem</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="mensagemForm">
+                        <div class="form-group">
+                            <label for="sistema">Selecione o Sistema:</label>
+                            <select class="form-control" id="sistema" name="sistema" required>
+                                <option value="CNT">CNT</option>
+                                <option value="Sest/Senat">Sest/Senat</option>
+                                <option value="ITL">ITL</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filtro">Filtrar por:</label>
+                            <select class="form-control" id="filtro" name="filtro" required>
+                                <option value="todos">Todos</option>
+                                <option value="estado">Estado</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="filtro_valor_group" style="display: none;">
+                            <label for="filtro_valor">Valor do Filtro:</label>
+                            <select class="form-control" id="filtro_valor" name="filtro_valor">
+                                <option value="">Selecione um estado</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search">Buscar Empresa:</label>
+                            <input type="text" class="form-control" id="search" name="search" placeholder="Digite o nome da empresa">
+                        </div>
+                        <div id="empresaList" class="form-group border p-3" style="max-height: 150px; overflow-y: auto;">
+                        </div>
+                        <div class="form-group">
+                            <label for="template">Selecione o Template:</label>
+                            <select class="form-control" id="template" name="template">
+                                <option value="">Selecione um template</option>
+                                <option value="bem_vindo">Bem-vindo</option>
+                                <option value="aviso">Aviso</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem:</label>
+                            <textarea class="form-control" id="mensagem" name="mensagem" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_mensagem">Tipo de Mensagem:</label>
+                            <select class="form-control" id="tipo_mensagem" name="tipo_mensagem" required>
+                                <option value="texto">Texto</option>
+                                <option value="link">Link</option>
+                                <option value="imagem">Imagem</option>
+                                <option value="audio">Áudio</option>
+                                <option value="video">Vídeo</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Configuração de Templates -->
+    <div id="templatesModal" class="modal fade animate__animated animate__fadeIn">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Configuração de Templates</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="templateForm">
+                        <div class="form-group">
+                            <label for="template_nome">Nome do Template:</label>
+                            <input type="text" class="form-control" id="template_nome" name="template_nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="template_mensagem">Mensagem do Template:</label>
+                            <textarea class="form-control" id="template_mensagem" name="template_mensagem" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Criar/Editar Template</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Visualizar Empresas -->
+    <div id="empresasModal" class="modal fade animate__animated animate__fadeIn">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Visualizar Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="empresasList" class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CNPJ</th>
+                                    <th>Estado</th>
+                                    <th>Número de WhatsApp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="empresasTableBody">
+                                <!-- Empresas serão carregadas aqui -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <button id="criarGrupoBtn" class="btn btn-primary mt-3">Criar Grupo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Criar Grupo -->
+    <div id="grupoModal" class="modal fade animate__animated animate__fadeIn">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Criar Grupo</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="grupoForm">
+                        <div class="form-group">
+                            <label for="grupo_nome">Nome do Grupo:</label>
+                            <input type="text" class="form-control" id="grupo_nome" name="grupo_nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Selecione as Empresas:</label>
+                            <div id="grupoEmpresasList" class="border p-3" style="max-height: 150px; overflow-y: auto;">
+                                <!-- Lista de empresas para selecionar no grupo -->
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Criar Grupo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluindo o JavaScript do Bootstrap e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        const templates = {
+            'bem_vindo': 'Bem-vindo à CNT, {nome_empresa}! Estamos aqui para ajudar.',
+            'aviso': 'Lembramos que o prazo para envio de documentos é {data_limite}.'
+        };
+
+        async function carregarEmpresas(estado = '') {
+            const response = await fetch(`/empresas${estado ? '?estado=' + estado : ''}`);
+            const data = await response.json();
+            const empresaList = document.getElementById('empresaList');
+            empresaList.innerHTML = '';
+            data.empresas.forEach(empresa => {
+                const div = document.createElement('div');
+                div.innerHTML = `<input type="checkbox" name="empresas" value="${empresa.numero}"> ${empresa.nome} - ${empresa.cnpj} (${empresa.estado})`;
+                empresaList.appendChild(div);
+            });
+        }
+
+        async function carregarTemplates() {
+            const templateSelect = document.getElementById('template');
+            templateSelect.innerHTML = '<option value="">Selecione um template</option>';
+            for (const [key, value] of Object.entries(templates)) {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ');
+                templateSelect.appendChild(option);
+            }
+        }
+
+        async function carregarListaEmpresas() {
+            const response = await fetch('/empresas');
+            const data = await response.json();
+            const empresasTableBody = document.getElementById('empresasTableBody');
+            empresasTableBody.innerHTML = '';
+            data.empresas.forEach(empresa => {
+                empresasTableBody.innerHTML += 
+                    `<tr>
+                        <td>${empresa.nome}</td>
+                        <td>${empresa.cnpj}</td>
+                        <td>${empresa.estado}</td>
+                        <td>${empresa.numero}</td>
+                    </tr>`;
+            });
+        }
+
+        document.getElementById('cadastroForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const cnpj = document.getElementById('cnpj').value;
+            const estado = document.getElementById('estado').value;
+            const numero = document.getElementById('numero').value;
+
+            const response = await fetch('/cadastrar_empresa', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, cnpj, estado, numero })
+            });
+
+            const result = await response.json();
+            alert(result.status);
+            carregarEmpresas();
+            carregarListaEmpresas(); // Atualiza a lista de empresas
+            $('#cadastroModal').modal('hide');
+        });
+
+        document.getElementById('template').addEventListener('change', function() {
+            const template = document.getElementById('template').value;
+            const mensagem = document.getElementById('mensagem');
+            if (template) {
+                mensagem.value = templates[template];
+            } else {
+                mensagem.value = '';
+            }
+        });
+
+        document.getElementById('mensagemForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const sistema = document.getElementById('sistema').value;
+            const filtro = document.getElementById('filtro').value;
+            const filtro_valor = document.getElementById('filtro_valor').value;
+            const mensagem = document.getElementById('mensagem').value;
+            const tipoMensagem = document.getElementById('tipo_mensagem').value;
+
+            if (mensagem.length < 10) {
+                alert('A mensagem deve ter pelo menos 10 caracteres.');
+                return;
+            }
+
+            const empresasSelecionadas = Array.from(document.querySelectorAll('input[name="empresas"]:checked')).map(checkbox => checkbox.value);
+
+            if (empresasSelecionadas.length === 0) {
+                alert('Por favor, selecione pelo menos uma empresa.');
+                return;
+            }
+
+            const response = await fetch('/send_message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ sistema, filtro, filtro_valor, message: mensagem, type: tipoMensagem, empresas: empresasSelecionadas })
+            });
+
+            const result = await response.json();
+            alert(result.status);
+        });
+
+        document.getElementById('templateForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const nome = document.getElementById('template_nome').value;
+            const mensagem = document.getElementById('template_mensagem').value;
+
+            const response = await fetch('/configurar_template', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, mensagem })
+            });
+
+            const result = await response.json();
+            alert(result.status);
+            if (result.status === 'Template criado/editado com sucesso!') {
+                templates[nome] = mensagem;
+                carregarTemplates();
+            }
+        });
+
+        document.getElementById('search').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const empresaList = document.getElementById('empresaList');
+            Array.from(empresaList.children).forEach(div => {
+                const text = div.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    div.style.display = '';
+                } else {
+                    div.style.display = 'none';
+                }
+            });
+        });
+
+        document.getElementById('filtro').addEventListener('change', function() {
+            const filtro = this.value;
+            const filtroValorGroup = document.getElementById('filtro_valor_group');
+            if (filtro === 'estado') {
+                filtroValorGroup.style.display = 'block';
+                carregarEmpresas(document.getElementById('filtro_valor').value);
+            } else {
+                filtroValorGroup.style.display = 'none';
+                carregarEmpresas();
+            }
+        });
+
+        document.getElementById('filtro_valor').addEventListener('change', function() {
+            const estado = this.value;
+            carregarEmpresas(estado);
+        });
+
+        carregarEmpresas();
+        carregarTemplates();
+
+        // Modal script
+        $('#cadastroBtn').on('click', function() {
+            $('#cadastroModal').modal('show');
+        });
+
+        $('#mensagensBtn').on('click', function() {
+            $('#mensagensModal').modal('show');
+        });
+
+        $('#templatesBtn').on('click', function() {
+            $('#templatesModal').modal('show');
+        });
+
+        $('#empresasBtn').on('click', function() {
+            carregarListaEmpresas();
+            $('#empresasModal').modal('show');
+        });
+
+        $('#criarGrupoBtn').on('click', function() {
+            $('#grupoModal').modal('show');
+            carregarEmpresasNoGrupo();
+        });
+
+        async function carregarEmpresasNoGrupo() {
+            const response = await fetch('/empresas');
+            const data = await response.json();
+            const grupoEmpresasList = document.getElementById('grupoEmpresasList');
+            grupoEmpresasList.innerHTML = '';
+            data.empresas.forEach(empresa => {
+                const div = document.createElement('div');
+                div.innerHTML = `<input type="checkbox" name="empresas_grupo" value="${empresa.nome}"> ${empresa.nome} - ${empresa.numero} (${empresa.estado})`;
+                grupoEmpresasList.appendChild(div);
+            });
+        }
+
+        document.getElementById('grupoForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const nome = document.getElementById('grupo_nome').value;
+            const empresasSelecionadas = Array.from(document.querySelectorAll('input[name="empresas_grupo"]:checked')).map(checkbox => checkbox.value);
+
+            if (empresasSelecionadas.length === 0) {
+                alert('Por favor, selecione pelo menos uma empresa.');
+                return;
+            }
+
+            const response = await fetch('/criar_grupo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nome, empresas: empresasSelecionadas })
+            });
+
+            const result = await response.json();
+            alert(result.status);
+            $('#grupoModal').modal('hide');
+        });
+    </script>
+</body>
+</html>
