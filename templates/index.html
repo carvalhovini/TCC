@@ -10,34 +10,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <!-- Incluindo o CSS do Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <!-- Incluindo Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background: url('https://www.cnt.org.br/assets/imagens/banner-principal7-mobile.png') no-repeat center center fixed;
             background-size: cover;
             margin: 0;
             padding: 0;
+            color: #333;
         }
         .container {
             padding: 20px;
         }
         .navbar {
-            background-color: #003770;
+            background-color: rgba(0, 55, 112, 0.8);
         }
         .navbar a {
             color: white;
         }
         .section {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             margin: 20px 0;
             animation: fadeIn 1s ease-in-out;
         }
         .modal-content {
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
         .close {
             color: #aaa;
@@ -47,7 +50,7 @@
             color: black;
         }
         .form-control {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         .btn-primary {
             background-color: #0056b3;
@@ -68,13 +71,14 @@
         }
         .nav-buttons {
             display: flex;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 15px;
             margin-top: 20px;
         }
         .nav-buttons a {
             background-color: #0056b3;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border-radius: 5px;
             text-decoration: none;
             transition: background-color 0.3s, transform 0.3s;
@@ -93,16 +97,17 @@
             z-index: 10;
         }
         .hero-section {
-            padding: 60px 0;
+            padding: 80px 0;
             color: white;
             text-align: center;
+            background-color: rgba(0, 55, 112, 0.7);
         }
         .hero-section h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
         }
         .hero-section p {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
         }
         .logo {
             height: 50px;
