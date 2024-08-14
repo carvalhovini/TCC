@@ -25,9 +25,15 @@
         "numero": "+5551999999999"
     },
     {
-        "nome": "Nordeste Digital Corp",
+        "nome": "alana",
         "cnpj": "52345678000105",
         "estado": "BA",
-        "numero": "+5571999999999"
+        "numero": "+556192437091"
+    },
+    {
+        "nome": "vini",
+        "cnpj": "52345678000105",
+        "estado": "DF",
+        "numero": "+556184081114"
     }
 ]
